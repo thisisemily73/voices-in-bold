@@ -152,7 +152,6 @@ export default function Profile() {
                             disabled={loading}
                         >
                             {loading ? "Saving..." : "Save changes"}
-                            <span>↗</span>
                         </button>
 
                     </form>

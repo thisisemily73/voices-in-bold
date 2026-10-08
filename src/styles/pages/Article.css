@@ -1,4 +1,4 @@
-x/* Article Header */
+/* Article Header */
 
 .article-header {
   padding: 5rem 0 7rem;
@@ -16,7 +16,7 @@ x/* Article Header */
 .article-back {
   display: inline-block;
   margin-bottom: 5rem;
-  color: #ffe8e5;
+  color: white;
   font-size: 0.75rem;
   font-weight: 800;
   letter-spacing: 0.1em;
@@ -26,7 +26,7 @@ x/* Article Header */
 }
 
 .article-back:hover {
-  color: var(--accent);
+  color: var(--accent-light);
 }
 
 /* Category */
@@ -34,7 +34,8 @@ x/* Article Header */
 .article-header .article-category {
   display: block;
   margin-bottom: 1.5rem;
-  color: var(--accent);
+  color: var(--accent-light);
+  font-weight: 900;
 }
 
 /* Title */
@@ -42,6 +43,7 @@ x/* Article Header */
 .article-header h1 {
   max-width: 950px;
   margin: 0;
+  color: white;
   font-size: clamp(4rem, 9vw, 9rem);
   line-height: 0.82;
   letter-spacing: -0.075em;
@@ -52,7 +54,7 @@ x/* Article Header */
 .article-excerpt {
   max-width: 700px;
   margin: 2.5rem 0 0;
-  color: #ffe8e5;
+  color: #fff8f3;
   font-size: 1.15rem;
   line-height: 1.7;
 }
@@ -64,8 +66,8 @@ x/* Article Header */
   gap: 2rem;
   margin-top: 3rem;
   padding-top: 1rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.3);
-  color: #ffe8e5;
+  border-top: 1px solid rgba(255, 255, 255, 0.45);
+  color: #fff8f3;
   font-size: 0.7rem;
   font-weight: 800;
   letter-spacing: 0.1em;
@@ -88,7 +90,7 @@ x/* Article Header */
 
 .article-content p {
   margin: 0 0 2rem;
-  color: var(--text-secondary);
+  color: var(--text-main);
   font-size: 1.1rem;
   line-height: 1.9;
 }
@@ -98,6 +100,7 @@ x/* Article Header */
 .article-content p:first-child {
   color: var(--text-main);
   font-size: 1.35rem;
+  font-weight: 500;
 }
 
 /* Article Footer */
@@ -144,6 +147,7 @@ x/* Article Header */
 
 .article-not-found h1 {
   margin: 1rem 0 3rem;
+  color: var(--text-main);
   font-size: clamp(4rem, 9vw, 9rem);
   line-height: 0.8;
   letter-spacing: -0.075em;

@@ -1,0 +1,211 @@
+/* New Article Header */
+
+.new-article-header {
+    padding: 5rem 0 6rem;
+    background: var(--primary);
+    color: white;
+}
+
+.new-article-header-inner {
+    width: min(100% - 3rem, var(--max-width));
+    margin: 0 auto;
+}
+
+.new-article-header .section-label {
+    display: block;
+    margin-bottom: 1.5rem;
+    color: var(--accent-light);
+}
+
+.new-article-header h1 {
+    margin: 0;
+    font-size: clamp(4rem, 9vw, 8rem);
+    line-height: 0.82;
+    letter-spacing: -0.075em;
+}
+
+.new-article-header h1 em {
+    display: block;
+    color: var(--accent);
+    font-family: "DM Serif Display", Georgia, serif;
+    font-weight: 400;
+}
+
+.new-article-header p {
+    max-width: 550px;
+    margin: 2rem 0 0;
+    color: #ffe8e5;
+    line-height: 1.7;
+}
+
+/* New Article Section */
+
+.new-article-section {
+    padding: 6rem 1.5rem 8rem;
+    background: var(--bg-main);
+}
+
+/* Article Card */
+
+.new-article-card {
+    width: min(100%, 800px);
+    margin: 0 auto;
+    padding: 3rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-lg);
+}
+
+/* Error */
+
+.new-article-error {
+    margin-bottom: 2rem;
+    padding: 0.9rem 1rem;
+    border-left: 4px solid var(--error);
+    background: #fff0ed;
+    color: var(--error);
+    font-size: 0.85rem;
+    line-height: 1.5;
+}
+
+/* Fields */
+
+.new-article-field {
+    margin-bottom: 2rem;
+}
+
+.new-article-field label {
+    display: block;
+    margin-bottom: 0.6rem;
+    color: var(--text-main);
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.new-article-field input,
+.new-article-field select,
+.new-article-field textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 0;
+    outline: none;
+    background: white;
+    color: var(--text-main);
+    font: inherit;
+    font-size: 0.95rem;
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.new-article-field textarea {
+    resize: vertical;
+    line-height: 1.7;
+}
+
+.new-article-field input:focus,
+.new-article-field select:focus,
+.new-article-field textarea:focus {
+    border-color: var(--primary);
+    box-shadow: 4px 4px 0 var(--accent);
+}
+
+.new-article-field textarea::placeholder,
+.new-article-field input::placeholder {
+    color: var(--text-light);
+}
+
+/* Hint */
+
+.new-article-hint {
+    display: block;
+    margin-top: 0.5rem;
+    color: var(--text-light);
+    font-size: 0.75rem;
+}
+
+/* Actions */
+
+.new-article-actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.new-article-cancel,
+.new-article-save {
+    padding: 1rem 1.2rem;
+    border: none;
+    cursor: pointer;
+    font: inherit;
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.new-article-cancel {
+    background: var(--bg-soft);
+    color: var(--text-main);
+}
+
+.new-article-cancel:hover {
+    background: var(--border-light);
+}
+
+.new-article-save {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-width: 150px;
+    background: var(--primary);
+    color: white;
+}
+
+.new-article-save:hover:not(:disabled) {
+    background: var(--primary-dark);
+}
+
+.new-article-save:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+/* Mobile */
+
+@media (max-width: 700px) {
+
+    .new-article-header {
+        padding: 4rem 0 5rem;
+    }
+
+    .new-article-header-inner {
+        width: min(100% - 2rem, var(--max-width));
+    }
+
+    .new-article-header h1 {
+        font-size: clamp(3.5rem, 17vw, 6rem);
+    }
+
+    .new-article-section {
+        padding: 4rem 1rem 6rem;
+    }
+
+    .new-article-card {
+        padding: 2rem 1.5rem;
+    }
+
+    .new-article-actions {
+        flex-direction: column-reverse;
+    }
+
+    .new-article-cancel,
+    .new-article-save {
+        width: 100%;
+    }
+}

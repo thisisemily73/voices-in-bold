@@ -14,6 +14,7 @@ import Article from "./pages/Article";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Auth from "./pages/Auth";
+import NewArticle from './pages/NewArticle';
 
 import Profile from "./pages/Profile";
 import Settings from "./pages/Settings";
@@ -49,7 +50,7 @@ function App() {
 
       <main>
         <ScrollToTop />
-        
+
         <Routes>
 
           <Route path="/" element={<Home />} />
@@ -90,6 +91,13 @@ function App() {
             path="/settings"
             element={
               user ? <Settings /> : <Navigate to="/auth" replace />
+            }
+          />
+
+          <Route
+            path="/articles/new"
+            element={
+              user ? <NewArticle /> : <Navigate to="/auth" replace />
             }
           />
 
