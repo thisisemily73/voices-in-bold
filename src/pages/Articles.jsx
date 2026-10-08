@@ -1,259 +1,188 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import {
+    collection,
+    getDocs,
+    query,
+    where,
+} from "firebase/firestore";
 import { Link } from "react-router-dom";
+
+import { db } from "../firebase";
 import "../styles/pages/Articles.css";
 
-import articles from "../data/articles.json";
-
-const categories = [
-  "All",
-  "News",
-  "Opinion",
-  "Features",
-  "Culture",
-  "Media",
-];
-
 export default function Articles() {
-  const [activeCategory, setActiveCategory] = useState("All");
+    const [articles, setArticles] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState("");
 
-  const featuredArticle = articles.find(
-    (article) => article.featured
-  );
+    /* Load published articles */
 
-  const filteredArticles =
-    activeCategory === "All"
-      ? articles
-      : articles.filter(
-          (article) => article.category === activeCategory
+    useEffect(() => {
+        const loadArticles = async () => {
+            try {
+                const articlesQuery = query(
+                    collection(db, "articles"),
+                    where("status", "==", "published")
+                );
+
+                const snapshot = await getDocs(articlesQuery);
+
+                const publishedArticles = snapshot.docs.map((doc) => ({
+                    id: doc.id,
+                    ...doc.data(),
+                }));
+
+                /* Newest published articles first */
+
+                publishedArticles.sort((a, b) => {
+                    const aTime =
+                        a.publishedAt?.toMillis?.() ||
+                        a.updatedAt?.toMillis?.() ||
+                        0;
+
+                    const bTime =
+                        b.publishedAt?.toMillis?.() ||
+                        b.updatedAt?.toMillis?.() ||
+                        0;
+
+                    return bTime - aTime;
+                });
+
+                setArticles(publishedArticles);
+            } catch (error) {
+                console.error(error);
+                setError(
+                    "We couldn't load the latest stories."
+                );
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        loadArticles();
+    }, []);
+
+    /* Format date */
+
+    const formatDate = (timestamp) => {
+        if (!timestamp?.toDate) {
+            return "";
+        }
+
+        return timestamp.toDate().toLocaleDateString(
+            "en-US",
+            {
+                month: "short",
+                day: "numeric",
+                year: "numeric",
+            }
         );
+    };
 
-  return (
-    <main className="articles-page">
+    return (
+        <main className="articles-page">
 
-      {/* Hero */}
+            {/* Header */}
 
-      <section className="articles-hero">
-        <div className="articles-hero-inner">
-          <span className="section-label">
-            Voices in BOLD / Articles
-          </span>
+            <section className="articles-header">
+                <div className="articles-header-inner">
 
-          <h1>
-            Stories
-            <em>worth hearing.</em>
-          </h1>
+                    <span className="section-label">
+                        Voices in BOLD / Stories
+                    </span>
 
-          <p>
-            Reporting, opinions, features, and stories from the
-            student community.
-          </p>
-        </div>
-      </section>
+                    <h1>
+                        Student
+                        <em>voices.</em>
+                    </h1>
 
-
-      {/* Featured */}
-
-      {featuredArticle && activeCategory === "All" && (
-        <section className="articles-featured">
-          <div className="section-container">
-
-            <div className="articles-section-heading">
-              <span className="section-label">
-                01 / Featured
-              </span>
-            </div>
-
-            <Link
-              to={`/articles/${featuredArticle.id}`}
-              className="featured-article"
-            >
-              <div className="featured-article-content">
-
-                <span className="article-category">
-                  {featuredArticle.category}
-                </span>
-
-                <h2>
-                  {featuredArticle.title}
-                </h2>
-
-                <p>
-                  {featuredArticle.excerpt}
-                </p>
-
-                <div className="article-meta">
-                  <span>
-                    {featuredArticle.author}
-                  </span>
-
-                  <span>
-                    {featuredArticle.date}
-                  </span>
-                </div>
-
-              </div>
-
-              <div className="featured-article-arrow">
-                ↗
-              </div>
-            </Link>
-
-          </div>
-        </section>
-      )}
-
-
-      {/* Articles */}
-
-      <section className="articles-list-section">
-        <div className="section-container">
-
-          <div className="articles-list-header">
-            <div>
-              <span className="section-label">
-                {activeCategory === "All"
-                  ? "02 / All Stories"
-                  : `02 / ${activeCategory}`}
-              </span>
-
-              <h2>Latest.</h2>
-            </div>
-
-            <span className="article-count">
-              {filteredArticles.length}{" "}
-              {filteredArticles.length === 1
-                ? "story"
-                : "stories"}
-            </span>
-          </div>
-
-
-          {/* Filters */}
-
-          <div
-            className="article-filters"
-            aria-label="Filter articles"
-          >
-            {categories.map((category) => (
-              <button
-                key={category}
-                type="button"
-                className={
-                  activeCategory === category
-                    ? "filter-button active"
-                    : "filter-button"
-                }
-                onClick={() =>
-                  setActiveCategory(category)
-                }
-              >
-                {category}
-              </button>
-            ))}
-          </div>
-
-
-          {/* Article Grid */}
-
-          <div className="articles-grid">
-            {filteredArticles.map((article) => (
-              <Link
-                key={article.id}
-                to={`/articles/${article.id}`}
-                className="article-card"
-              >
-
-                <div className="article-card-top">
-
-                  <span className="article-category">
-                    {article.category}
-                  </span>
-
-                  <span className="article-card-number">
-                    {String(article.id).padStart(2, "0")}
-                  </span>
+                    <p>
+                        Stories, ideas, and perspectives from
+                        students in our community.
+                    </p>
 
                 </div>
-
-                <div className="article-card-content">
-
-                  <h3>
-                    {article.title}
-                  </h3>
-
-                  <p>
-                    {article.excerpt}
-                  </p>
-
-                </div>
-
-                <div className="article-meta">
-
-                  <span>
-                    {article.author}
-                  </span>
-
-                  <span>
-                    {article.date}
-                  </span>
-
-                </div>
-
-                <span className="article-card-arrow">
-                  ↗
-                </span>
-
-              </Link>
-            ))}
-          </div>
+            </section>
 
 
-          {/* Empty State */}
+            {/* Articles */}
 
-          {filteredArticles.length === 0 && (
-            <div className="articles-empty">
-              <h3>No stories yet.</h3>
+            <section className="articles-section">
 
-              <p>
-                There aren't any articles in this category yet.
-              </p>
-            </div>
-          )}
+                {loading ? (
+                    <div className="articles-empty">
+                        Loading stories...
+                    </div>
+                ) : error ? (
+                    <div className="articles-error">
+                        {error}
+                    </div>
+                ) : articles.length === 0 ? (
+                    <div className="articles-empty">
+                        <h2>
+                            No stories yet.
+                        </h2>
 
-        </div>
-      </section>
+                        <p>
+                            Check back soon for new student writing.
+                        </p>
+                    </div>
+                ) : (
+                    <div className="articles-grid">
 
+                        {articles.map((article) => (
+                            <article
+                                className="article-card"
+                                key={article.id}
+                            >
 
-      {/* CTA */}
+                                <span className="article-card-category">
+                                    {article.category}
+                                </span>
 
-      <section className="articles-cta">
-        <div className="articles-cta-inner">
+                                <h2>
+                                    {article.title}
+                                </h2>
 
-          <span className="section-label">
-            03 / Your Voice
-          </span>
+                                {article.excerpt && (
+                                    <p>
+                                        {article.excerpt}
+                                    </p>
+                                )}
 
-          <h2>
-            Have a story
-            <em>to tell?</em>
-          </h2>
+                                <div className="article-card-footer">
 
-          <p>
-            [... information about submitting a story or
-            getting involved goes here]
-          </p>
+                                    <span>
+                                        By{" "}
+                                        {article.author ||
+                                            "Unknown author"}
+                                    </span>
 
-          <Link
-            to="/contact"
-            className="articles-cta-button"
-          >
-            Get in touch
-            <span>↗</span>
-          </Link>
+                                    <span>
+                                        {formatDate(
+                                            article.publishedAt ||
+                                            article.updatedAt
+                                        )}
+                                    </span>
 
-        </div>
-      </section>
+                                </div>
 
-    </main>
-  );
+                                <Link
+                                    to={`/articles/${article.id}`}
+                                    className="article-card-link"
+                                >
+                                    Read Story
+                                    <span>↗</span>
+                                </Link>
+
+                            </article>
+                        ))}
+
+                    </div>
+                )}
+
+            </section>
+
+        </main>
+    );
 }

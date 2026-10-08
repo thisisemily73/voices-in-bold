@@ -294,7 +294,7 @@
 
 .status-review {
     border-color: var(--warning);
-    background: #fff3d6;
+    background: #ffe5d6;
     color: var(--warning);
 }
 
@@ -393,6 +393,19 @@
 }
 
 .my-article-edit:hover {
+    color: var(--primary-dark);
+}
+
+/* Editor feedback in article list */
+
+.my-article-feedback {
+    margin: 0.75rem 0 0;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    line-height: 1.6;
+}
+
+.my-article-feedback strong {
     color: var(--primary-dark);
 }
 

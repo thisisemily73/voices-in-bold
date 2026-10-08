@@ -2,7 +2,7 @@
 
 .articles-hero {
   padding: 8rem 0 9rem;
-  background: var(--primary);
+  background: var(--bg-dark);
   color: white;
 }
 

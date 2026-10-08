@@ -230,6 +230,31 @@
     opacity: 0.6;
 }
 
+/* Editor feedback notice */
+
+.editor-feedback-notice {
+    margin-bottom: 1.5rem;
+    padding: 1.25rem;
+    border-left: 4px solid var(--primary);
+    background: var(--bg-soft);
+}
+
+.editor-feedback-notice strong {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--primary-dark);
+    font-size: 0.8rem;
+    font-weight: 900;
+    text-transform: uppercase;
+}
+
+.editor-feedback-notice p {
+    margin: 0;
+    color: var(--text-main);
+    line-height: 1.7;
+    white-space: pre-wrap;
+}
+
 /* Mobile */
 
 @media (max-width: 700px) {

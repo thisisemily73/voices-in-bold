@@ -345,12 +345,14 @@ export default function Profile() {
                                             )}
                                         </span>
 
-                                        {article.status === "drafting" && (
+                                        {["drafting", "rejected"].includes(article.status) && (
                                             <Link
                                                 to={`/articles/${article.id}/edit`}
                                                 className="my-article-edit"
                                             >
-                                                Edit
+                                                {article.status === "rejected"
+                                                    ? "Revise Article"
+                                                    : "Edit"}
                                             </Link>
                                         )}
 

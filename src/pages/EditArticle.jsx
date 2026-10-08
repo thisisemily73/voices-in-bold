@@ -23,6 +23,8 @@ export default function EditArticle() {
     const [savingAction, setSavingAction] = useState("");
     const [error, setError] = useState("");
 
+    const [articleFeedback, setArticleFeedback] = useState("");
+
     /* Load article */
 
     useEffect(() => {
@@ -55,9 +57,9 @@ export default function EditArticle() {
 
                 /* Only drafts are editable by writers */
 
-                if (article.status !== "drafting") {
+                if (!["drafting", "rejected"].includes(article.status)) {
                     setError(
-                        "This article is no longer a draft and cannot be edited."
+                        "This article is awaiting review or has already been published."
                     );
                     setLoading(false);
                     return;
@@ -72,6 +74,8 @@ export default function EditArticle() {
                         ? article.content.join("\n\n")
                         : ""
                 );
+
+                setArticleFeedback(article.editorFeedback || "");
             } catch (error) {
                 console.error(error);
                 setError("We couldn't load this article.");
@@ -118,6 +122,7 @@ export default function EditArticle() {
                 excerpt: excerpt.trim(),
                 content: paragraphs,
                 status,
+                editorFeedback: "",
                 updatedAt: serverTimestamp(),
             });
 
@@ -195,6 +200,19 @@ export default function EditArticle() {
                     {error && (
                         <div className="new-article-error">
                             {error}
+                        </div>
+                    )}
+
+                    {error && (
+                        <div className="new-article-error">
+                            {error}
+                        </div>
+                    )}
+
+                    {articleFeedback && (
+                        <div className="editor-feedback-notice">
+                            <strong>Changes requested by your editor</strong>
+                            <p>{articleFeedback}</p>
                         </div>
                     )}
 
