@@ -93,7 +93,7 @@
 
 .about-mission {
   padding: 10rem 0;
-  background: var(--bg-dark);
+  background: var(--primary);
   color: white;
 }
 
@@ -131,7 +131,7 @@
 /* Areas */
 
 .about-areas {
-  background: var(--primary);
+  background: var(--bg-main);
 }
 
 .about-area-grid {
