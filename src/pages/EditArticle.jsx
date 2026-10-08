@@ -1,15 +1,17 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
-    addDoc,
-    collection,
+    doc,
+    getDoc,
+    updateDoc,
     serverTimestamp,
 } from "firebase/firestore";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 import { auth, db } from "../firebase";
 import "../styles/pages/NewArticle.css";
 
-export default function NewArticle() {
+export default function EditArticle() {
+    const { id } = useParams();
     const navigate = useNavigate();
 
     const [title, setTitle] = useState("");
@@ -17,14 +19,75 @@ export default function NewArticle() {
     const [excerpt, setExcerpt] = useState("");
     const [content, setContent] = useState("");
 
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
+    const [savingAction, setSavingAction] = useState("");
     const [error, setError] = useState("");
 
-    /* Save article */
+    /* Load article */
+
+    useEffect(() => {
+        const loadArticle = async () => {
+            if (!auth.currentUser) {
+                setError("You must be logged in to edit an article.");
+                setLoading(false);
+                return;
+            }
+
+            try {
+                const articleRef = doc(db, "articles", id);
+                const snapshot = await getDoc(articleRef);
+
+                if (!snapshot.exists()) {
+                    setError("This article could not be found.");
+                    setLoading(false);
+                    return;
+                }
+
+                const article = snapshot.data();
+
+                /* Only the author should be editing */
+
+                if (article.authorId !== auth.currentUser.uid) {
+                    setError("You do not have permission to edit this article.");
+                    setLoading(false);
+                    return;
+                }
+
+                /* Only drafts are editable by writers */
+
+                if (article.status !== "drafting") {
+                    setError(
+                        "This article is no longer a draft and cannot be edited."
+                    );
+                    setLoading(false);
+                    return;
+                }
+
+                setTitle(article.title || "");
+                setCategory(article.category || "Opinion");
+                setExcerpt(article.excerpt || "");
+
+                setContent(
+                    Array.isArray(article.content)
+                        ? article.content.join("\n\n")
+                        : ""
+                );
+            } catch (error) {
+                console.error(error);
+                setError("We couldn't load this article.");
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        loadArticle();
+    }, [id]);
+
+    /* Save changes */
 
     const handleSave = async (status) => {
         if (!auth.currentUser) {
-            setError("You must be logged in to create an article.");
+            setError("You must be logged in.");
             return;
         }
 
@@ -39,82 +102,103 @@ export default function NewArticle() {
         }
 
         setError("");
-        setLoading(true);
+        setSavingAction(status);
 
         try {
-            const user = auth.currentUser;
-
-            /* Convert text into paragraphs */
-
             const paragraphs = content
                 .split(/\n\s*\n/)
                 .map((paragraph) => paragraph.trim())
                 .filter(Boolean);
 
-            /* Create article */
+            const articleRef = doc(db, "articles", id);
 
-            await addDoc(collection(db, "articles"), {
+            await updateDoc(articleRef, {
                 title: title.trim(),
                 category,
                 excerpt: excerpt.trim(),
                 content: paragraphs,
-
-                authorId: user.uid,
-                author: user.displayName || user.email || "Unknown author",
-
                 status,
-
-                createdAt: serverTimestamp(),
                 updatedAt: serverTimestamp(),
             });
 
             navigate("/profile");
         } catch (error) {
             console.error(error);
-
             setError(
-                "We couldn't save your article. Please try again."
+                "We couldn't save your changes. Please try again."
             );
         } finally {
-            setLoading(false);
+            setSavingAction("");
         }
     };
 
+    if (loading) {
+        return (
+            <main className="new-article-page">
+                <section className="new-article-section">
+                    <div className="new-article-card">
+                        <p>Loading article...</p>
+                    </div>
+                </section>
+            </main>
+        );
+    }
+
+    if (error && !title) {
+        return (
+            <main className="new-article-page">
+                <section className="new-article-section">
+                    <div className="new-article-card">
+                        <div className="new-article-error">
+                            {error}
+                        </div>
+
+                        <Link
+                            to="/profile"
+                            className="profile-add-button"
+                        >
+                            Back to Profile
+                        </Link>
+                    </div>
+                </section>
+            </main>
+        );
+    }
+
     return (
         <main className="new-article-page">
-
             {/* Header */}
 
             <section className="new-article-header">
                 <div className="new-article-header-inner">
-
                     <span className="section-label">
-                        Voices in BOLD / New Article
+                        Voices in BOLD / Edit Article
                     </span>
 
                     <h1>
-                        Tell your
+                        Edit your
                         <em>story.</em>
                     </h1>
 
                     <p>
-                        Write, save, and submit your story for review.
+                        Make your changes, save your draft, or submit it
+                        for editorial review.
                     </p>
-
                 </div>
             </section>
-
 
             {/* Editor */}
 
             <section className="new-article-section">
-
                 <div className="new-article-card">
 
-                    {/* Title */}
+                    {error && (
+                        <div className="new-article-error">
+                            {error}
+                        </div>
+                    )}
 
                     <div className="new-article-field">
-
                         <label htmlFor="article-title">
                             Title
                         </label>
@@ -126,16 +210,10 @@ export default function NewArticle() {
                             onChange={(e) =>
                                 setTitle(e.target.value)
                             }
-                            placeholder="Give your story a title"
                         />
-
                     </div>
 
-
-                    {/* Category */}
-
                     <div className="new-article-field">
-
                         <label htmlFor="article-category">
                             Category
                         </label>
@@ -153,14 +231,9 @@ export default function NewArticle() {
                             <option>Culture</option>
                             <option>Media</option>
                         </select>
-
                     </div>
 
-
-                    {/* Excerpt */}
-
                     <div className="new-article-field">
-
                         <label htmlFor="article-excerpt">
                             Excerpt
                         </label>
@@ -171,17 +244,11 @@ export default function NewArticle() {
                             onChange={(e) =>
                                 setExcerpt(e.target.value)
                             }
-                            placeholder="A short description of your story"
                             rows="3"
                         />
-
                     </div>
 
-
-                    {/* Content */}
-
                     <div className="new-article-field">
-
                         <label htmlFor="article-content">
                             Article
                         </label>
@@ -192,24 +259,13 @@ export default function NewArticle() {
                             onChange={(e) =>
                                 setContent(e.target.value)
                             }
-                            placeholder="Start writing your story..."
                             rows="18"
                         />
 
                         <span className="new-article-hint">
                             Separate paragraphs with a blank line.
                         </span>
-
                     </div>
-
-                    {/* Error */}
-
-                    {error && (
-                        <div className="new-article-error">
-                            {error}
-                        </div>
-                    )}
-
 
                     {/* Actions */}
 
@@ -219,7 +275,7 @@ export default function NewArticle() {
                             type="button"
                             className="new-article-cancel"
                             onClick={() => navigate("/profile")}
-                            disabled={loading}
+                            disabled={savingAction !== ""}
                         >
                             Cancel
                         </button>
@@ -232,9 +288,9 @@ export default function NewArticle() {
                                 onClick={() =>
                                     handleSave("drafting")
                                 }
-                                disabled={loading}
+                                disabled={savingAction !== ""}
                             >
-                                {loading
+                                {savingAction === "drafting"
                                     ? "Saving..."
                                     : "Save Draft"}
                             </button>
@@ -245,9 +301,9 @@ export default function NewArticle() {
                                 onClick={() =>
                                     handleSave("pending")
                                 }
-                                disabled={loading}
+                                disabled={savingAction !== ""}
                             >
-                                {loading
+                                {savingAction === "pending"
                                     ? "Submitting..."
                                     : "Submit for Review"}
 
@@ -255,13 +311,9 @@ export default function NewArticle() {
                             </button>
 
                         </div>
-
                     </div>
-
                 </div>
-
             </section>
-
         </main>
     );
 }

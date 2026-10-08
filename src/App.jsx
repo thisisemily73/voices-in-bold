@@ -16,6 +16,9 @@ import Contact from "./pages/Contact";
 import Auth from "./pages/Auth";
 import NewArticle from './pages/NewArticle';
 
+import EditArticle from "./pages/EditArticle";
+import EditorPanel from "./pages/EditorPanel";
+
 import Profile from "./pages/Profile";
 import Settings from "./pages/Settings";
 
@@ -98,6 +101,20 @@ function App() {
             path="/articles/new"
             element={
               user ? <NewArticle /> : <Navigate to="/auth" replace />
+            }
+          />
+
+          <Route
+            path="/articles/:id/edit"
+            element={
+              <EditArticle />
+            }
+          />
+
+          <Route
+            path="/editor"
+            element={
+              <EditorPanel />
             }
           />
 

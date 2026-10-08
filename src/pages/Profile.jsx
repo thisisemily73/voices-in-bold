@@ -1,8 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { updateProfile } from "firebase/auth";
+import {
+    collection,
+    getDocs,
+    query,
+    where,
+} from "firebase/firestore";
 import { Link } from "react-router-dom";
 
-import { auth } from "../firebase";
+import { auth, db } from "../firebase";
 import "../styles/pages/Profile.css";
 
 export default function Profile() {
@@ -14,6 +20,51 @@ export default function Profile() {
 
     const [message, setMessage] = useState("");
     const [loading, setLoading] = useState(false);
+
+    const [articles, setArticles] = useState([]);
+    const [articlesLoading, setArticlesLoading] = useState(true);
+
+    /* Load user's articles */
+
+    useEffect(() => {
+        const loadArticles = async () => {
+            if (!user) {
+                setArticlesLoading(false);
+                return;
+            }
+
+            try {
+                const articlesQuery = query(
+                    collection(db, "articles"),
+                    where("authorId", "==", user.uid)
+                );
+
+                const snapshot = await getDocs(articlesQuery);
+
+                const userArticles = snapshot.docs.map((doc) => ({
+                    id: doc.id,
+                    ...doc.data(),
+                }));
+
+                /* Newest articles first */
+
+                userArticles.sort((a, b) => {
+                    const aTime = a.updatedAt?.toMillis?.() || 0;
+                    const bTime = b.updatedAt?.toMillis?.() || 0;
+
+                    return bTime - aTime;
+                });
+
+                setArticles(userArticles);
+            } catch (error) {
+                console.error("Error loading articles:", error);
+            } finally {
+                setArticlesLoading(false);
+            }
+        };
+
+        loadArticles();
+    }, [user]);
 
     /* Update profile */
 
@@ -34,6 +85,63 @@ export default function Profile() {
             setMessage("Something went wrong. Please try again.");
         } finally {
             setLoading(false);
+        }
+    };
+
+    /* Format article date */
+
+    const formatDate = (timestamp) => {
+        if (!timestamp?.toDate) {
+            return "Recently updated";
+        }
+
+        return `Updated ${timestamp.toDate().toLocaleDateString(
+            "en-US",
+            {
+                month: "short",
+                day: "numeric",
+                year: "numeric",
+            }
+        )}`;
+    };
+
+    /* Get readable status */
+
+    const getStatusLabel = (status) => {
+        switch (status) {
+            case "published":
+                return "Published";
+
+            case "pending":
+                return "Pending Review";
+
+            case "drafting":
+                return "Drafting";
+
+            case "rejected":
+                return "Changes Requested";
+
+            default:
+                return "Drafting";
+        }
+    };
+
+    /* Get status CSS class */
+
+    const getStatusClass = (status) => {
+        switch (status) {
+            case "published":
+                return "status-published";
+
+            case "pending":
+                return "status-pending";
+
+            case "rejected":
+                return "status-review";
+
+            case "drafting":
+            default:
+                return "status-drafting";
         }
     };
 
@@ -185,62 +293,71 @@ export default function Profile() {
 
                     <div className="my-articles-list">
 
-                        {/* Temporary example articles */}
-
-                        <div className="my-article-row">
-
-                            <div className="my-article-info">
-                                <h3>The Power of Student Voices</h3>
-                                <span>Updated Oct. 4, 2026</span>
+                        {articlesLoading ? (
+                            <div className="my-articles-empty">
+                                Loading your articles...
                             </div>
+                        ) : articles.length === 0 ? (
+                            <div className="my-articles-empty">
+                                <h3>
+                                    No articles yet.
+                                </h3>
 
-                            <span className="article-status status-published">
-                                Published
-                            </span>
+                                <p>
+                                    Start writing your first story.
+                                </p>
 
-                        </div>
-
-
-                        <div className="my-article-row">
-
-                            <div className="my-article-info">
-                                <h3>Why Student Perspectives Matter</h3>
-                                <span>Updated Oct. 5, 2026</span>
+                                <Link
+                                    to="/articles/new"
+                                    className="profile-add-button"
+                                >
+                                    + Add New
+                                </Link>
                             </div>
+                        ) : (
+                            articles.map((article) => (
+                                <div
+                                    className="my-article-row"
+                                    key={article.id}
+                                >
+                                    <div className="my-article-info">
+                                        <h3>
+                                            {article.title}
+                                        </h3>
 
-                            <span className="article-status status-review">
-                                Under Review
-                            </span>
+                                        <span>
+                                            {formatDate(
+                                                article.updatedAt ||
+                                                article.createdAt
+                                            )}
+                                        </span>
+                                    </div>
 
-                        </div>
+                                    <div className="my-article-actions">
 
+                                        <span
+                                            className={`article-status ${getStatusClass(
+                                                article.status
+                                            )}`}
+                                        >
+                                            {getStatusLabel(
+                                                article.status
+                                            )}
+                                        </span>
 
-                        <div className="my-article-row">
+                                        {article.status === "drafting" && (
+                                            <Link
+                                                to={`/articles/${article.id}/edit`}
+                                                className="my-article-edit"
+                                            >
+                                                Edit
+                                            </Link>
+                                        )}
 
-                            <div className="my-article-info">
-                                <h3>Student Voices in Action</h3>
-                                <span>Submitted Oct. 7, 2026</span>
-                            </div>
-
-                            <span className="article-status status-pending">
-                                Pending Review
-                            </span>
-
-                        </div>
-
-
-                        <div className="my-article-row">
-
-                            <div className="my-article-info">
-                                <h3>My Campus Story</h3>
-                                <span>Last edited Oct. 8, 2026</span>
-                            </div>
-
-                            <span className="article-status status-drafting">
-                                Drafting
-                            </span>
-
-                        </div>
+                                    </div>
+                                </div>
+                            ))
+                        )}
 
                     </div>
 

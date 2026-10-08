@@ -1,0 +1,199 @@
+/* Page */
+
+.editor-page {
+    min-height: 70vh;
+    background: var(--bg-main);
+}
+
+
+/* Header */
+
+.editor-header {
+    padding: 5rem 0 6rem;
+    background: var(--bg-dark);
+    color: white;
+}
+
+.editor-header-inner {
+    width: min(100% - 3rem, var(--max-width));
+    margin: 0 auto;
+}
+
+.editor-header h1 {
+    margin: 1rem 0 1.5rem;
+    color: white;
+    font-size: clamp(4rem, 9vw, 8rem);
+    line-height: 0.82;
+    letter-spacing: -0.075em;
+}
+
+.editor-header h1 em {
+    display: block;
+    color: var(--accent);
+    font-family: "DM Serif Display", Georgia, serif;
+    font-weight: 400;
+}
+
+.editor-header p {
+    max-width: 600px;
+    margin: 0;
+    color: #f4e9df;
+    font-size: 1.05rem;
+    line-height: 1.7;
+}
+
+
+/* Section */
+
+.editor-section {
+    width: min(100% - 3rem, var(--max-width));
+    margin: 0 auto;
+    padding: 6rem 0 8rem;
+}
+
+.editor-section-heading {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.editor-section-heading h2 {
+    margin: 0.5rem 0 0;
+    color: var(--text-main);
+    font-size: 2.5rem;
+    letter-spacing: -0.04em;
+}
+
+.editor-count {
+    color: var(--text-muted);
+    font-size: 0.7rem;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+
+/* Submission List */
+
+.editor-list {
+    border-top: 2px solid var(--text-main);
+}
+
+.editor-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    padding: 1.75rem 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.editor-row-info {
+    min-width: 0;
+}
+
+.editor-category {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--primary);
+    font-size: 0.65rem;
+    font-weight: 900;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.editor-row-info h3 {
+    margin: 0 0 0.4rem;
+    color: var(--text-main);
+    font-size: 1.35rem;
+}
+
+.editor-row-info p {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+}
+
+.editor-review-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    flex-shrink: 0;
+    padding: 0.8rem 1rem;
+    background: var(--primary);
+    color: white;
+    font-size: 0.7rem;
+    font-weight: 900;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+.editor-review-button:hover {
+    background: var(--primary-dark);
+}
+
+
+/* Empty State */
+
+.editor-empty {
+    padding: 4rem 2rem;
+    border: 1px solid var(--border-color);
+    background: var(--bg-card);
+    text-align: center;
+}
+
+.editor-empty h3 {
+    margin: 0 0 0.5rem;
+    color: var(--text-main);
+}
+
+.editor-empty p {
+    margin: 0;
+    color: var(--text-muted);
+}
+
+
+/* Error */
+
+.editor-error {
+    padding: 1rem;
+    border: 1px solid var(--error);
+    background: #fff0f0;
+    color: var(--error);
+    font-size: 0.85rem;
+}
+
+
+/* Mobile */
+
+@media (max-width: 700px) {
+    .editor-header {
+        padding: 4rem 0 5rem;
+    }
+
+    .editor-header-inner,
+    .editor-section {
+        width: min(100% - 2rem, var(--max-width));
+    }
+
+    .editor-section {
+        padding: 4rem 0 6rem;
+    }
+
+    .editor-section-heading {
+        align-items: start;
+        flex-direction: column;
+    }
+
+    .editor-row {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .editor-review-button {
+        width: 100%;
+        justify-content: center;
+    }
+}
