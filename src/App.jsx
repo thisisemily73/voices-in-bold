@@ -17,7 +17,9 @@ import Auth from "./pages/Auth";
 import NewArticle from './pages/NewArticle';
 
 import EditArticle from "./pages/EditArticle";
-import EditorPanel from "./pages/EditorPanel";
+
+import EditorPanel from "./pages/editor_panel/EditorPanel";
+import EditorArticle from "./pages/editor_panel/EditorArticle";
 
 import Profile from "./pages/Profile";
 import Settings from "./pages/Settings";
@@ -116,6 +118,11 @@ function App() {
             element={
               <EditorPanel />
             }
+          />
+
+          <Route
+            path="/editor/articles/:id"
+            element={<EditorArticle />}
           />
 
           <Route

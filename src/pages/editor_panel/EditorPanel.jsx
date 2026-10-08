@@ -7,8 +7,8 @@ import {
 } from "firebase/firestore";
 import { Link } from "react-router-dom";
 
-import { auth, db } from "../firebase";
-import "../styles/pages/EditorPanel.css";
+import { auth, db } from "../../firebase";
+import "../../styles/pages/EditorPanel.css";
 
 export default function EditorPanel() {
     const [articles, setArticles] = useState([]);

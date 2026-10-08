@@ -1,0 +1,340 @@
+/* Page */
+
+.editor-article-page {
+    min-height: 70vh;
+    background: var(--bg-main);
+}
+
+
+/* Header */
+
+.editor-article-header {
+    padding: 4rem 0 6rem;
+    background: var(--primary);
+    color: white;
+}
+
+.editor-article-header-inner {
+    width: min(100% - 3rem, 1000px);
+    margin: 0 auto;
+}
+
+
+/* Back Link */
+
+.editor-article-back {
+    display: inline-block;
+    margin-bottom: 4rem;
+    color: white;
+    font-size: 0.7rem;
+    font-weight: 900;
+    letter-spacing: 0.1em;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+.editor-article-back:hover {
+    color: var(--accent-light);
+}
+
+
+/* Category */
+
+.editor-article-category {
+    display: block;
+    margin-bottom: 1.5rem;
+    color: var(--accent-light);
+    font-size: 0.7rem;
+    font-weight: 900;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+
+/* Title */
+
+.editor-article-header h1 {
+    max-width: 950px;
+    margin: 0;
+    color: white;
+    font-size: clamp(3.5rem, 8vw, 7rem);
+    line-height: 0.85;
+    letter-spacing: -0.07em;
+}
+
+
+/* Meta */
+
+.editor-article-meta {
+    display: flex;
+    gap: 2rem;
+    margin-top: 3rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.4);
+    color: #fff8f3;
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+
+/* Article Section */
+
+.editor-article-section {
+    padding: 6rem 0 9rem;
+}
+
+.editor-article-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 760px) 280px;
+    align-items: start;
+    gap: 5rem;
+    width: min(100% - 3rem, 1100px);
+    margin: 0 auto;
+}
+
+
+/* Article Content */
+
+.editor-article-content p {
+    margin: 0 0 2rem;
+    color: var(--text-main);
+    font-size: 1.1rem;
+    line-height: 1.9;
+}
+
+.editor-article-excerpt {
+    margin-bottom: 3rem !important;
+    color: var(--text-secondary) !important;
+    font-size: 1.35rem !important;
+    font-weight: 500;
+    line-height: 1.7 !important;
+}
+
+
+/* Controls */
+
+.editor-controls {
+    position: sticky;
+    top: 2rem;
+    padding: 1.5rem;
+    border: 1px solid var(--border-color);
+    background: var(--bg-card);
+}
+
+.editor-controls-label {
+    margin-bottom: 1rem;
+    color: var(--text-muted);
+    font-size: 0.65rem;
+    font-weight: 900;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+
+/* Publish */
+
+.editor-publish-button {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 1rem;
+    border: none;
+    background: var(--primary);
+    color: white;
+    cursor: pointer;
+    font: inherit;
+    font-size: 0.7rem;
+    font-weight: 900;
+    text-transform: uppercase;
+}
+
+.editor-publish-button:hover:not(:disabled) {
+    background: var(--primary-dark);
+}
+
+
+/* Request Changes */
+
+.editor-changes-button {
+    width: 100%;
+    margin-top: 0.75rem;
+    padding: 1rem;
+    border: 1px solid var(--border-color);
+    background: var(--bg-soft);
+    color: var(--text-main);
+    cursor: pointer;
+    font: inherit;
+    font-size: 0.7rem;
+    font-weight: 900;
+    text-transform: uppercase;
+}
+
+.editor-changes-button:hover:not(:disabled) {
+    background: var(--border-light);
+}
+
+
+/* Feedback */
+
+.editor-feedback {
+    margin-top: 1rem;
+}
+
+.editor-feedback label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--text-main);
+    font-size: 0.7rem;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.editor-feedback textarea {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0.8rem;
+    border: 1px solid var(--border-color);
+    background: white;
+    color: var(--text-main);
+    resize: vertical;
+    font: inherit;
+    font-size: 0.85rem;
+    line-height: 1.5;
+}
+
+.editor-feedback textarea:focus {
+    outline: 2px solid var(--primary);
+    outline-offset: -2px;
+}
+
+
+/* Send Feedback */
+
+.editor-send-feedback {
+    width: 100%;
+    margin-top: 0.75rem;
+    padding: 0.8rem;
+    border: none;
+    background: var(--text-main);
+    color: white;
+    cursor: pointer;
+    font: inherit;
+    font-size: 0.65rem;
+    font-weight: 900;
+    text-transform: uppercase;
+}
+
+.editor-send-feedback:hover:not(:disabled) {
+    background: var(--primary);
+}
+
+
+/* Error */
+
+.editor-action-error {
+    margin-bottom: 1rem;
+    padding: 0.75rem;
+    background: #fff0f0;
+    color: var(--error);
+    font-size: 0.75rem;
+    line-height: 1.5;
+}
+
+
+/* Loading */
+
+.editor-article-loading {
+    padding: 8rem 1.5rem;
+    color: var(--text-muted);
+    text-align: center;
+}
+
+
+/* Error Page */
+
+.editor-article-error-page {
+    min-height: 70vh;
+    padding: 8rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-main);
+    text-align: center;
+}
+
+.editor-article-error-page h1 {
+    margin: 1rem 0;
+    color: var(--text-main);
+    font-size: clamp(3.5rem, 8vw, 7rem);
+    line-height: 0.85;
+    letter-spacing: -0.07em;
+}
+
+.editor-article-error-page h1 em {
+    display: block;
+    color: var(--primary);
+    font-family: "DM Serif Display", Georgia, serif;
+    font-weight: 400;
+}
+
+.editor-article-error-page p {
+    margin: 0 0 2rem;
+    color: var(--text-muted);
+}
+
+.editor-back-button {
+    padding: 0.8rem 1rem;
+    background: var(--primary);
+    color: white;
+    font-size: 0.7rem;
+    font-weight: 900;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+
+/* Disabled */
+
+.editor-publish-button:disabled,
+.editor-changes-button:disabled,
+.editor-send-feedback:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+
+/* Mobile */
+
+@media (max-width: 800px) {
+    .editor-article-header {
+        padding: 4rem 0 5rem;
+    }
+
+    .editor-article-header-inner {
+        width: min(100% - 2rem, 1000px);
+    }
+
+    .editor-article-meta {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .editor-article-section {
+        padding: 4rem 0 6rem;
+    }
+
+    .editor-article-layout {
+        display: block;
+        width: min(100% - 2rem, 760px);
+    }
+
+    .editor-controls {
+        position: static;
+        margin-top: 4rem;
+    }
+}
