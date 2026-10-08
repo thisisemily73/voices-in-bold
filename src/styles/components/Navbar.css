@@ -1,0 +1,168 @@
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
+  width: 100%;
+
+  background: var(--bg-main);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.navbar-inner {
+  position: relative;
+
+  width: min(100% - 3rem, var(--max-width));
+  min-height: 76px;
+  margin: 0 auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Logo */
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+
+  text-decoration: none;
+}
+
+.navbar-logo {
+  width: 52px;
+  height: 52px;
+
+  object-fit: contain;
+
+  transition: transform 0.25s ease;
+  transform: scaleX(-1);
+}
+
+.navbar-brand:hover .navbar-logo {
+  transform: rotate(-4deg) scale(1.05);
+}
+
+/* Navigation */
+
+.navbar-links {
+  position: absolute;
+  left: 50%;
+
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+
+  transform: translateX(-50%);
+}
+
+.nav-link {
+  position: relative;
+
+  padding: 0.5rem 0;
+
+  color: var(--text-secondary);
+
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+
+  transition: color 0.2s ease;
+}
+
+.nav-link::after {
+  content: "";
+
+  position: absolute;
+  left: 0;
+  bottom: 0;
+
+  width: 0;
+  height: 2px;
+
+  background: var(--primary);
+
+  transition: width 0.25s ease;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: var(--primary);
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+  width: 100%;
+}
+
+/* Account */
+
+.navbar-account {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.login-link {
+  color: var(--text-main);
+
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-decoration: none;
+
+  transition: color 0.2s ease;
+}
+
+.login-link:hover {
+  color: var(--primary);
+}
+
+.signup-button {
+  padding: 0.65rem 1rem;
+
+  background: var(--primary);
+  color: white;
+
+  border-radius: var(--radius-sm);
+
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-decoration: none;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.signup-button:hover {
+  background: var(--primary-dark);
+  transform: translateY(-2px);
+}
+
+/* Mobile */
+
+@media (max-width: 700px) {
+  .navbar-inner {
+    width: min(100% - 2rem, var(--max-width));
+    min-height: 68px;
+  }
+
+  .navbar-logo {
+    width: 46px;
+    height: 46px;
+  }
+
+  .navbar-links {
+    display: none;
+  }
+
+  .login-link {
+    display: none;
+  }
+
+  .signup-button {
+    padding: 0.55rem 0.8rem;
+  }
+}

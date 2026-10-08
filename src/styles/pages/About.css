@@ -1,0 +1,347 @@
+/* Hero */
+
+.about-hero {
+  padding: 8rem 0 9rem;
+  background: var(--bg-dark);
+  color: white;
+}
+
+.about-hero-inner {
+  width: min(100% - 3rem, var(--max-width));
+  margin: 0 auto;
+}
+
+.about-hero .section-label {
+  color: var(--accent);
+}
+
+.about-hero h1 {
+  max-width: 1000px;
+  margin: 0;
+  font-size: clamp(4.5rem, 10vw, 10rem);
+  line-height: 0.8;
+  letter-spacing: -0.08em;
+}
+
+.about-hero h1 span {
+  display: block;
+  color: var(--accent);
+  font-family: "DM Serif Display", Georgia, serif;
+  font-weight: 400;
+}
+
+.about-hero-description {
+  max-width: 600px;
+  margin: 3rem 0 0;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: #ffe8e5;
+}
+
+
+/* General */
+
+.about-section {
+  padding: 9rem 0;
+  background: var(--bg-main);
+}
+
+.about-section-grid {
+  width: min(100% - 3rem, var(--max-width));
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 6rem;
+}
+
+.about-section-heading h2 {
+  margin: 0;
+  font-size: clamp(4rem, 8vw, 8rem);
+  line-height: 0.8;
+  letter-spacing: -0.07em;
+}
+
+.about-section-heading h2 em {
+  display: block;
+  color: var(--primary);
+  font-family: "DM Serif Display", Georgia, serif;
+  font-weight: 400;
+}
+
+.about-section-copy {
+  padding-top: 2rem;
+}
+
+.about-section-copy h3 {
+  max-width: 650px;
+  margin: 0 0 2rem;
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  line-height: 0.95;
+  letter-spacing: -0.05em;
+}
+
+.about-section-copy p {
+  max-width: 650px;
+  margin: 0 0 1.5rem;
+  font-size: 1rem;
+  line-height: 1.8;
+  color: var(--text-secondary);
+}
+
+
+/* Mission */
+
+.about-mission {
+  padding: 10rem 0;
+  background: var(--bg-dark);
+  color: white;
+}
+
+.about-mission-inner {
+  width: min(100% - 3rem, 1100px);
+  margin: 0 auto;
+}
+
+.about-mission .section-label {
+  color: var(--accent);
+}
+
+.about-mission h2 {
+  max-width: 1100px;
+  margin: 0;
+  font-size: clamp(3.5rem, 8vw, 8rem);
+  line-height: 0.85;
+  letter-spacing: -0.07em;
+}
+
+.about-mission h2 em {
+  color: var(--accent);
+  font-family: "DM Serif Display", Georgia, serif;
+  font-weight: 400;
+}
+
+.about-mission p {
+  max-width: 600px;
+  margin: 2.5rem 0 0;
+  color: #c9b8ad;
+  line-height: 1.7;
+}
+
+
+/* Areas */
+
+.about-areas {
+  background: var(--primary);
+}
+
+.about-area-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  border-top: 2px solid var(--text-main);
+  border-left: 2px solid var(--text-main);
+  background: var(--bg-main);
+}
+
+.about-area-card {
+  min-height: 280px;
+  padding: 2.5rem;
+  border-right: 2px solid var(--text-main);
+  border-bottom: 2px solid var(--text-main);
+  transition:
+    background 0.25s ease,
+    transform 0.25s ease;
+}
+
+.about-area-card:hover {
+  background: var(--accent);
+}
+
+.about-area-card > span {
+  display: block;
+  margin-bottom: 4rem;
+  color: var(--primary);
+  font-size: 0.7rem;
+  font-weight: 900;
+  letter-spacing: 0.15em;
+}
+
+.about-area-card h3 {
+  margin: 0 0 1rem;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  line-height: 0.9;
+  letter-spacing: -0.05em;
+}
+
+.about-area-card p {
+  max-width: 420px;
+  margin: 0;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+
+/* Values */
+
+.about-values {
+  padding: 9rem 0;
+  background: var(--accent);
+}
+
+.values-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin-top: 3rem;
+  border-top: 2px solid var(--text-main);
+}
+
+.value {
+  padding: 2.5rem 2rem;
+  border-right: 2px solid var(--text-main);
+  background: var(--bg-main);
+}
+
+.value:first-child {
+  border-left: 2px solid var(--text-main);
+}
+
+.value > span {
+  color: var(--primary);
+  font-size: 0.7rem;
+  font-weight: 900;
+  letter-spacing: 0.15em;
+}
+
+.value h3 {
+  margin: 4rem 0 1rem;
+  font-size: 2rem;
+  letter-spacing: -0.04em;
+}
+
+.value p {
+  margin: 0;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+
+/* CTA */
+
+.about-cta {
+  padding: 10rem 0;
+  background: var(--bg-dark);
+  color: white;
+  text-align: center;
+}
+
+.about-cta-inner {
+  width: min(100% - 3rem, 900px);
+  margin: 0 auto;
+}
+
+.about-cta .section-label {
+  color: var(--accent);
+}
+
+.about-cta h2 {
+  margin: 0;
+  font-size: clamp(4rem, 9vw, 9rem);
+  line-height: 0.8;
+  letter-spacing: -0.075em;
+}
+
+.about-cta h2 em {
+  display: block;
+  color: var(--accent);
+  font-family: "DM Serif Display", Georgia, serif;
+  font-weight: 400;
+}
+
+.about-cta p {
+  max-width: 600px;
+  margin: 2.5rem auto;
+  color: #ffe8e5;
+  line-height: 1.7;
+}
+
+.about-cta-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 1rem 1.4rem;
+  background: var(--bg-main);
+  color: var(--primary);
+  font-weight: 900;
+  text-decoration: none;
+  transition:
+    transform 0.25s ease,
+    background 0.25s ease;
+}
+
+.about-cta-button:hover {
+  background: var(--accent);
+  color: var(--text-main);
+  transform: translateY(-4px) rotate(-1deg);
+}
+
+.about-cta-button span {
+  font-size: 1.1rem;
+}
+
+
+/* Mobile */
+
+@media (max-width: 700px) {
+  .about-hero,
+  .about-section,
+  .about-mission,
+  .about-values,
+  .about-cta {
+    padding: 6rem 0;
+  }
+
+  .about-hero-inner,
+  .about-section-grid,
+  .about-mission-inner,
+  .about-cta-inner {
+    width: min(100% - 2rem, var(--max-width));
+  }
+
+  .about-section-grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .about-section-copy {
+    padding-top: 0;
+  }
+
+  .about-area-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about-area-card {
+    min-height: 240px;
+    padding: 1.75rem;
+  }
+
+  .about-area-card > span {
+    margin-bottom: 2.5rem;
+  }
+
+  .values-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .value {
+    border-left: 2px solid var(--text-main);
+    border-bottom: 2px solid var(--text-main);
+  }
+
+  .value:first-child {
+    border-bottom: 2px solid var(--text-main);
+  }
+
+  .value:last-child {
+    border-bottom: 0;
+  }
+}
