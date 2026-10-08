@@ -4,6 +4,7 @@ import { Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Home from './pages/Home';
+import Article from "./pages/Article";
 import Articles from './pages/Articles';
 import About from './pages/About';
 import Contact from './pages/Contact';
@@ -31,9 +32,13 @@ function App({ user }) {
       <main>
         <Routes>
           <Route path="/" element={<Home setView={setView} />} />
-          <Route path="/articles" element={<Articles setView={setView} />} />
+
+          <Route path="/articles/:id" element={<Article />} />
+          <Route path="/articles" element={<Articles />} />
+
           <Route path="/about" element={<About setView={setView} />} />
           <Route path="/contact" element={<Contact setView={setView} />} />
+
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>

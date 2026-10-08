@@ -1,0 +1,75 @@
+[
+  {
+    "id": 1,
+    "category": "Opinion",
+    "title": "The Power of Student Voices",
+    "excerpt": "Why student perspectives deserve a place in the conversations that shape our communities.",
+    "author": "Your Name",
+    "date": "Oct. 4, 2026",
+    "featured": true
+  },
+  {
+    "id": 2,
+    "category": "Features",
+    "title": "What Matters to Us",
+    "excerpt": "A closer look at the ideas, experiences, and issues students care about most.",
+    "author": "Your Name",
+    "date": "Oct. 2, 2026"
+  },
+  {
+    "id": 3,
+    "category": "Culture",
+    "title": "Beyond the Headlines",
+    "excerpt": "Looking past the surface to understand the stories and people behind the news.",
+    "author": "Your Name",
+    "date": "Sept. 29, 2026"
+  },
+  {
+    "id": 4,
+    "category": "News",
+    "title": "What's Happening Around Campus",
+    "excerpt": "The latest events, announcements, and stories from our school community.",
+    "author": "Your Name",
+    "date": "Oct. 6, 2026"
+  },
+  {
+    "id": 5,
+    "category": "Opinion",
+    "title": "Why Student Perspectives Matter",
+    "excerpt": "Students have something to say. Here's why we should be listening.",
+    "author": "Your Name",
+    "date": "Oct. 5, 2026"
+  },
+  {
+    "id": 6,
+    "category": "Features",
+    "title": "Meet the People Behind the Scenes",
+    "excerpt": "The students and staff whose work keeps our community moving.",
+    "author": "Your Name",
+    "date": "Oct. 3, 2026"
+  },
+  {
+    "id": 7,
+    "category": "Culture",
+    "title": "Finding Community Through Creativity",
+    "excerpt": "How students are using creativity to connect, collaborate, and express themselves.",
+    "author": "Your Name",
+    "date": "Sept. 30, 2026"
+  },
+  {
+    "id": 8,
+    "category": "Media",
+    "title": "Can We Trust What We See?",
+    "excerpt": "A closer look at misinformation, bias, and the way we consume information online.",
+    "author": "Your Name",
+    "date": "Sept. 28, 2026"
+  },
+  {
+    "id": 9,
+    "category": "News",
+    "title": "Student Voices in Action",
+    "excerpt": "How students are making their voices heard and driving change in our community.",
+    "author": "Your Name",
+    "date": "Oct. 7, 2026"
+  }
+]
